@@ -93,23 +93,23 @@ istioctl
 # Verifica os namespaces e é possível observar o ns do istio
 kubectl get ns
 #NAME              STATUS   AGE
-#default           Active   168m
-#kube-system       Active   168m
-#kube-public       Active   168m
-#kube-node-lease   Active   168m
-#istio-system      Active   5m6s
+# default           Active   168m
+# kube-system       Active   168m
+# kube-public       Active   168m
+# kube-node-lease   Active   168m
+# istio-system      Active   5m6s
 
 # Mostra o istiod e o ingressgateway rodando
 kubectl get po -n istio-system
-#NAME                                    READY   STATUS    RESTARTS   AGE
-#istiod-977466b69-jqkgz                  1/1     Running   0          6m49s
-#istio-ingressgateway-559fb9c9d9-txbhq   1/1     Running   0          6m37s
+# NAME                                    READY   STATUS    RESTARTS   AGE
+# istiod-977466b69-jqkgz                  1/1     Running   0          6m49s
+# istio-ingressgateway-559fb9c9d9-txbhq   1/1     Running   0          6m37s
 
 # Exibe os serviços do Istio
 kubectl get svc -n istio-system
-#NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                      AGE
-#istiod                 ClusterIP      10.43.54.16     <none>        15010/TCP,15012/TCP,443/TCP,15014/TCP        10m
-#istio-ingressgateway   LoadBalancer   10.43.189.249   <pending>     15021:32037/TCP,80:30823/TCP,443:31745/TCP   9m59s
+# NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                      AGE
+# istiod                 ClusterIP      10.43.54.16     <none>        15010/TCP,15012/TCP,443/TCP,15014/TCP        10m
+# istio-ingressgateway   LoadBalancer   10.43.189.249   <pending>     15021:32037/TCP,80:30823/TCP,443:31745/TCP   9m59s
 ```
 
 ## K8s
@@ -133,4 +133,33 @@ kubectl apply -f deployment.yaml
 # Verifica o istio-proxy rodando
 kubectl describe pod nginx-5d8974d7bd-nn7zv
 # Created container istio-proxy
+```
+
+## Istio addon
+
+Repositório: https://github.com/istio/istio/tree/master/samples/addons
+
+```bash
+# Apply do Grafana
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/addons/grafana.yaml
+
+# Apply do Jaeger
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/addons/jaeger.yaml
+
+# Apply do Kiali
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/addons/kiali.yaml
+
+# Apply do Prometheus
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/master/samples/addons/prometheus.yaml
+
+# Verifica os pods no Istio
+kubectl get pod -n istio-system
+# istiod-977466b69-jqkgz                  1/1     Running   0          39m
+# istio-ingressgateway-559fb9c9d9-txbhq   1/1     Running   0          39m
+# grafana-5f9b8c6c5d-d7m6d                1/1     Running   0          3m44s
+# jaeger-db6bdfcb4-g7vqq                  1/1     Running   0          2m24s
+# kiali-7c9d5f9f96-g2mxw                  1/1     Running   0          100s
+
+# Abrir o dashboard do Kiali
+istioctl dashboard kiali
 ```
