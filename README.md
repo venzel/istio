@@ -1,5 +1,7 @@
 # Istio
 
+<img src="./media/mundo-distribuido.png" />
+
 1. Gerenciamento de tráfego
 
 -   Gateways (entrada e saída)
@@ -20,3 +22,5 @@
 -   Man-in-the-middle
 -   mTLS
 -   AAA (authentication, autorization e audit)
+
+<img src="./media/dinamica-sidecar-proxy.png" />
